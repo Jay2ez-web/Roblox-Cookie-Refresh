@@ -1,0 +1,27 @@
+{
+  "name": "roblox-cookie-refresh",
+  "version": "1.0.0",
+  "description": "Roblox Cookie Refresher in Node.js, it can be dualhooked and you can host it on a site like onrender.com, replace the webhook in `server.js`.",
+  "main": "getuserinfo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MystificScripts/Roblox-Cookie-Refresh.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MystificScripts/Roblox-Cookie-Refresh/issues"
+  },
+  "homepage": "https://github.com/MystificScripts/Roblox-Cookie-Refresh#readme",
+  "dependencies": {
+    "axios": "^1.13.5",
+    "express": "^5.2.1",
+    "fs": "^0.0.1-security"
+  }
+}
