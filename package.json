@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "vercel-build": "node installer.js"
+    "vercel-build": "echo 'Build complete'"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/MystificScripts/Roblox-Cookie-Refresh/issues"
   },
